@@ -1,0 +1,107 @@
+/* styles.css */
+
+/* تخصيص ألوان الخلفية */
+body {
+  background-color: #f8f9fa;
+  font-family: 'Arial', sans-serif;
+}
+
+/* تخصيص رأس الموقع */
+header {
+  background-color: #343a40;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* تخصيص الروابط في التنقل */
+nav ul li a {
+  color: #fff;
+}
+
+nav ul li a:hover {
+  background-color: #495057;
+}
+
+/* تخصيص الجداول */
+table {
+  background-color: #fff;
+}
+
+th, td {
+  text-align: center;
+}
+
+/* تخصيص الأزرار */
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+/* تخصيص النماذج */
+form label {
+  font-weight: bold;
+}
+
+form .form-control, form .form-select {
+  border-radius: 0.25rem;
+}
+
+/* تخصيص قسم إدارة البيانات */
+#manage-data h2 {
+  margin-bottom: 20px;
+}
+
+#manage-data h3 {
+  margin-bottom: 15px;
+}
+
+#manage-data .btn {
+  margin-top: 10px;
+}
+
+#manage-data table {
+  margin-bottom: 10px;
+}
+
+/* تخصيص قسم إدارة البيانات */
+#manage-data h2 {
+  margin-bottom: 20px;
+}
+
+#manage-data h3 {
+  margin-bottom: 15px;
+}
+
+#manage-data .btn {
+  margin-top: 10px;
+}
+
+#manage-data table {
+  margin-bottom: 10px;
+}
+
+/* تخصيص جداول الواجبات */
+table th, table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* تحسين مظهر الأزرار */
+.btn-primary, .btn-success, .btn-danger {
+  border-radius: 5px;
+}
+
+/* تخصيص النماذج */
+form label {
+  font-weight: bold;
+}
+
+form .form-control, form .form-select {
+  border-radius: 0.25rem;
+}

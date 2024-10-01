@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقعي الدراسي</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="bg-dark text-white text-center py-4">
+        <h1>تنظيم وقتي الدراسي</h1>
+    </header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">القائمة</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="تبديل التنقل">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#add-exam">إضافة امتحان</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#add-assignment">إضافة واجب</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#performance">الأداء الدراسي</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#manage-classes">إدارة الحصص</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#view-assignments">الواجبات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#manage-data">إدارة البيانات</a></li> <!-- الرابط الجديد -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="container mt-4">
+        <!-- قسم إضافة الامتحانات -->
+        <section id="add-exam" class="mb-5">
+            <h2>إضافة امتحان</h2>
+            <form id="exam-form">
+                <div class="mb-3">
+                    <label for="exam-name" class="form-label">اسم المادة</label>
+                    <input type="text" class="form-control" id="exam-name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exam-date" class="form-label">تاريخ الامتحان</label>
+                    <input type="date" class="form-control" id="exam-date" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exam-percentage" class="form-label">نسبة الامتحان (%)</label>
+                    <input type="number" class="form-control" id="exam-percentage" min="0" max="100" required>
+                </div>
+                <button type="submit" class="btn btn-primary">إضافة الامتحان</button>
+            </form>
+        </section>
+        
+        <!-- قسم إضافة الواجبات -->
+        <section id="add-assignment" class="mb-5">
+            <h2>إضافة واجب</h2>
+            <form id="assignment-form">
+                <div class="mb-3">
+                    <label for="assignment-name" class="form-label">اسم المادة</label>
+                    <input type="text" class="form-control" id="assignment-name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="assignment-deadline" class="form-label">ميعاد التسليم</label>
+                    <input type="date" class="form-control" id="assignment-deadline" required>
+                </div>
+                <div class="mb-3">
+                    <label for="assignment-description" class="form-label">وصف الواجب</label>
+                    <textarea class="form-control" id="assignment-description" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">إضافة الواجب</button>
+            </form>
+        </section>
+        
+        <!-- قسم الأداء الدراسي -->
+        <section id="performance" class="mb-5">
+            <h2>الأداء الدراسي</h2>
+            <canvas id="myChart" width="400" height="200"></canvas>
+        </section>
+        
+        <!-- قسم إدارة الحصص الدراسية -->
+        <section id="manage-classes" class="mb-5">
+            <h2>إدارة الحصص الدراسية</h2>
+            <form id="class-form" class="mb-4">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label for="class-name" class="form-label">اسم الحصة</label>
+                        <input type="text" class="form-control" id="class-name" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="class-subject" class="form-label">المادة</label>
+                        <input type="text" class="form-control" id="class-subject" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="class-date" class="form-label">تاريخ الحصة</label>
+                        <input type="date" class="form-control" id="class-date" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="class-type" class="form-label">نوع الحصة</label>
+                        <select class="form-select" id="class-type" required>
+                            <option value="محاضرة">محاضرة</option>
+                            <option value="تمرين">تمرين</option>
+                            <option value="مختبر">مختبر</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">إضافة الحصة</button>
+            </form>
+            
+            <!-- جدول عرض الحصص -->
+            <table class="table table-striped" id="classes-table">
+                <thead>
+                    <tr>
+                        <th>اسم الحصة</th>
+                        <th>المادة</th>
+                        <th>تاريخ الحصة</th>
+                        <th>نوع الحصة</th>
+                        <th>إجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- سيتم إضافة الحصص هنا ديناميكيًا -->
+                </tbody>
+            </table>
+        </section>
+        
+        <!-- قسم عرض الواجبات -->
+        <!-- قسم عرض الواجبات -->
+<section id="view-assignments" class="mb-5">
+    <h2>الواجبات</h2>
+    <table class="table table-striped" id="assignments-table">
+        <thead>
+            <tr>
+                <th>التسلسل</th>
+                <th>اسم الواجب</th>
+                <th>عدد الاسئلة</th>
+                <th>النتيجة</th>
+                <th>عدد الاسئلة المحلولة</th>
+                <th>عدد الاسئلة الصحيحة</th>
+                <th>الاجابات</th>
+                <th>وقت بدأ الواجب</th>
+                <th>وقت انهاء الواجب</th>
+                <th>إجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- سيتم إضافة الواجبات هنا ديناميكيًا -->
+        </tbody>
+    </table>
+</section>
+
+        <!-- قسم إدارة البيانات -->
+<section id="manage-data" class="mb-5">
+    <h2>إدارة البيانات</h2>
+    
+    <!-- قسم إدارة الامتحانات -->
+    <div class="mb-4">
+        <h3>الامتحانات</h3>
+        <table class="table table-striped" id="exams-data-table">
+            <thead>
+                <tr>
+                    <th>اسم المادة</th>
+                    <th>تاريخ الامتحان</th>
+                    <th>نسبة الامتحان (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- سيتم إضافة بيانات الامتحانات هنا ديناميكيًا -->
+            </tbody>
+        </table>
+        <button class="btn btn-success me-2" onclick="exportData('exams')">تصدير البيانات</button>
+        <input type="file" id="import-exams" accept=".json" style="display:none;" onchange="importData(event, 'exams')">
+        <button class="btn btn-primary" onclick="document.getElementById('import-exams').click()">استيراد البيانات</button>
+    </div>
+    
+    <!-- قسم إدارة الواجبات -->
+    <div class="mb-4">
+        <h3>الواجبات</h3>
+        <table class="table table-striped" id="assignments-data-table">
+            <thead>
+                <tr>
+                    <th>اسم المادة</th>
+                    <th>ميعاد التسليم</th>
+                    <th>وصف الواجب</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- سيتم إضافة بيانات الواجبات هنا ديناميكيًا -->
+            </tbody>
+        </table>
+        <button class="btn btn-success me-2" onclick="exportData('assignments')">تصدير البيانات</button>
+        <input type="file" id="import-assignments" accept=".json" style="display:none;" onchange="importData(event, 'assignments')">
+        <button class="btn btn-primary" onclick="document.getElementById('import-assignments').click()">استيراد البيانات</button>
+    </div>
+</section>
+
+    </main>
+    <footer class="bg-dark text-white text-center py-3">
+        <p>© 2024 جميع الحقوق محفوظة.</p>
+    </footer>
+    
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- ملف الجافاسكريبت الخاص بك -->
+    <script src="script.js"></script>
+</body>
+</html>
